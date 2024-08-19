@@ -1,0 +1,44 @@
+# Import libraries, features and settings (not all of these are needed so pull what you need)
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets, linear_model
+from sklearn.metrics import mean_squared_error, r2_score
+import pandas as pd
+import io
+
+
+
+%matplotlib inline
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+from sklearn import preprocessing
+plt.rc("font", size=14)
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+sns.set(style="white")
+sns.set(style="whitegrid", color_codes=True)
+
+# Built in colab with local data upload
+from google.colab import files
+uploaded = files.upload()
+for fn in uploaded.keys():
+    print('User uploaded file "{name}" with length {length} bytes.'.format(
+        name=fn, length=len(uploaded[fn])))
+
+# Explore data
+df = pd.read_csv(io.StringIO(uploaded['candy-data.csv'].decode('utf-8')))
+df = df[['fruity','caramel','peanutyalmondy','nougat','crispedricewafer','hard',
+         'bar','pluribus','sugarpercent','pricepercent','winpercent','chocolate']]
+df.head()
+
+# Split data into train test sets
+from sklearn.model_selection import train_test_split
+trainingSet, testSet = train_test_split(df, test_size=0.2)
+
+# Creating the dataframes for training and test datasets
+train_df = trainingSet
+test_df = testSet
+
+# Clean the missing values if needed
+# train_df = train_df.dropna()
+# test_df = test_df.dropna()
